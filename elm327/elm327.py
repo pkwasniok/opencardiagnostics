@@ -70,7 +70,6 @@ class Adapter():
 
         return response_version
 
-
     def read_voltage(self):
         self.write(ELM327_CMD_READ_VOLTAGE)
         response = self.read()

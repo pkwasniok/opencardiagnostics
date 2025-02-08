@@ -13,6 +13,7 @@ parser.add_argument("--calibrate-voltage", action="store", type=float, help="cal
 parser.add_argument("--read-dtc", action="store_true", help="read dtc")
 parser.add_argument("--read-pending-dtc", action="store_true", help="read pending dtc")
 parser.add_argument("--clear", action="store_true", help="clear dtc and stored values")
+parser.add_argument("--monitor", action="store_true", help="monitor can bus")
 
 args = parser.parse_args()
 
@@ -64,6 +65,14 @@ elif args.clear:
     print("Clearing trouble codes and stored values... ", end="")
     adapter.clear()
     print("OK")
+
+elif args.monitor:
+    print("Starting monitoring CAN bus...")
+    adapter.write("AT MA")
+
+    while True:
+        frame = adapter.read()
+        print(frame)
 
 else:
     while True:
